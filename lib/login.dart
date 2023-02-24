@@ -14,24 +14,6 @@ class Login extends StatelessWidget {
       home: Scaffold(
           appBar: AppBar(
             title: const Text(_title),
-            actions: [
-              GestureDetector(
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Icon(
-                    Icons.home,
-                    size: 40,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return Register();
-                    },
-                  ));
-                },
-              )
-            ],
           ),
           body: const MyStatefulWidget()),
     );
@@ -59,7 +41,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'TutorialKart',
+                  'CarOK',
                   style: TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.w500,
@@ -83,7 +65,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 obscureText: true,
                 controller: passwordController,
@@ -122,10 +104,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 const Text('Does not have account?'),
                 TextButton(
                   child: const Text(
-                    'Sign in',
+                    'Sign Up',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return Regster();
+                      }),
+                    );
                     //signup screen
                   },
                 )

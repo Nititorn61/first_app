@@ -1,5 +1,6 @@
 import 'package:first_app/login.dart';
 import 'package:flutter/material.dart';
+import './register.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -31,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return Login();
+              return Regster();
             }),
           );
         },
