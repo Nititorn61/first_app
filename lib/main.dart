@@ -1,5 +1,6 @@
 import './login2.dart';
 import 'package:flutter/material.dart';
+import './regisvehicle.dart';
 
 void main() {
   runApp(MyApp());
