@@ -1,10 +1,42 @@
 import 'package:first_app/forgotpassword2.dart';
+import 'package:first_app/regisvehicle.dart';
+import 'package:first_app/service/database.dart';
 import 'package:flutter/material.dart';
 import './register2.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LoginPage extends StatelessWidget {
+Future<bool> login(String username, String password) async {
+  try {
+    // ค้นหาข้อมูลผู้ใช้จาก username ที่ใส่เข้ามา
+    var snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+
+    // ถ้าไม่พบผู้ใช้ หรือรหัสผ่านผิด ให้คืนค่า false
+    if (snapshot.docs.isEmpty ||
+        snapshot.docs[0].data()['password'] != password) {
+      return false;
+    }
+
+    // ถ้าพบผู้ใช้ และรหัสผ่านตรงกัน ให้คืนค่า true
+    return true;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  Database database = Database();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +111,7 @@ class LoginPage extends StatelessWidget {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                         side: BorderSide(color: Colors.red)))),
-            onPressed: () {
+            onPressed: () async {
               if (_usernameController.text.isEmpty ||
                   _passwordController.text.isEmpty) {
                 // แสดงข้อความเตือนเมื่อช่อง username หรือ password ว่างเปล่า
@@ -90,7 +122,24 @@ class LoginPage extends StatelessWidget {
                   ),
                 );
               } else {
-                // ระบบ Login
+                // เรียกใช้งานฟังก์ชัน login และรับค่าผลลัพธ์
+                bool success = await database.login(
+                    _usernameController.text, _passwordController.text);
+                if (success) {
+                  // สร้างหน้าที่จะไปหลังจาก Login สำเร็จ
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SignUpPage()));
+                } else {
+                  // แสดงข้อความเตือนเมื่อ Login ไม่สำเร็จ
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('ชื่อผู้ใช้หรือรหัสผ่านผิด'),
+                      duration: Duration(seconds: 3),
+                    ),
+                  );
+                }
               }
             },
             child: Text('Login'),
