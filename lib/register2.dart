@@ -11,19 +11,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  Future<String> _validateUsername(String username) async {
-// Check if username is already taken
-// If the username is taken, return "Username already taken". Otherwise, return null.
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(username)
-        .get();
-    if (doc.exists) {
-      return "Username already taken";
-    }
-    return null!;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

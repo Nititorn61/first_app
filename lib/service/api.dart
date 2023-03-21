@@ -252,3 +252,45 @@ class SignupBotton extends StatelessWidget {
     );
   }
 }
+
+class ForgotpasswordBotton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        if (_phonenumberController.text.isEmpty ||
+            _usernameController.text.isEmpty) {
+          // แสดงข้อความเตือนเมื่อช่อง username หรือ phonenumber ว่างเปล่า
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('กรุณากรอกข้อมูลให้ครบถ้วน'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        } else {
+          Future<bool> success = checkuserphone(
+              _phonenumberController.text, _usernameController.text);
+          if (await success) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('ระบบกำลังส่งข้อความไปยังเบอร์โทรศัพท์ของคุณ'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('ไม่พบบัญชีผู้ใช้งาน'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+          }
+        }
+      },
+      child: Text('Submit'),
+    );
+  }
+}
