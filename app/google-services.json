@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "818674949002",
+    "project_id": "carok-66df8",
+    "storage_bucket": "carok-66df8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818674949002:android:2b6a7df93dc04159d80673",
+        "android_client_info": {
+          "package_name": "com.carok.first_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818674949002-3u0s7bm6ev8cbha7d75ud61gr8sn63s9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carok.first_app",
+            "certificate_hash": "a30efd98eba18c73b12ba58cf518f771a4dbf2f3"
+          }
+        },
+        {
+          "client_id": "818674949002-7f5hm4ri2io139d7er6l0edo2328q4ie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0g9hr5YfeUr5cMH31m8_peORLP_-5YJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818674949002-7f5hm4ri2io139d7er6l0edo2328q4ie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
