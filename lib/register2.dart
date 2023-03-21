@@ -22,73 +22,78 @@ class _SignUpPageState extends State<SignUpPage> {
           elevation: 0,
           brightness: Brightness.dark, // ให้เนื้อหาที่อยู่ใน AppBar เป็นสีขาว
         ),
-        body: SafeArea(
-            child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("lib/images/background_login.jpg"),
-                    fit: BoxFit.cover,
-                    opacity: 0.6,
-                  ),
-                ),
-                child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SizedBox(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            CircleAvatar(
-                              radius: 60,
-                              backgroundImage:
-                                  AssetImage('lib/images/profile.png'),
-                            ),
-                            SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final pickedFile = await ImagePicker()
-                                    .pickImage(source: ImageSource.gallery);
-
-                                if (pickedFile != null) {
-                                  // Do something with the picked file
-                                  File file = File(pickedFile.path);
-                                  // รูปภาพที่เลือกจะอยู่ในตัวแปร file
-                                }
-                              },
-                              child: Text('Upload'),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.blue,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("lib/images/background_login.jpg"),
+                fit: BoxFit.fill,
+                opacity: 0.6,
+              ),
+            ),
+            width: double.infinity,
+            height: double.infinity,
+            child: SafeArea(
+                child: SingleChildScrollView(
+                    child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage:
+                                      AssetImage('lib/images/profile.png'),
                                 ),
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            UsernameBox(hintText: 'username'),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            PasswordBox(hintText: 'Enter your password'),
-                            Text('ข้อมูลส่วนตัว',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                )),
-                            SizedBox(height: 20),
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: FirstnameBox(hintText: 'ชื่อจริง')),
-                                SizedBox(width: 10),
-                                Expanded(
-                                    child: LastnameBox(hintText: 'นามสกุล')),
-                              ],
-                            ),
-                            SizedBox(height: 10),
-                            PhoneBox(hintText: 'เบอร์โทรศัพท์'),
-                            SizedBox(height: 20),
-                            SignupBotton(),
-                          ]),
-                    )))));
+                                SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    final pickedFile = await ImagePicker()
+                                        .pickImage(source: ImageSource.gallery);
+
+                                    if (pickedFile != null) {
+                                      // Do something with the picked file
+                                      File file = File(pickedFile.path);
+                                      // รูปภาพที่เลือกจะอยู่ในตัวแปร file
+                                    }
+                                  },
+                                  child: Text('Upload'),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                UsernameBox(hintText: 'username'),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                PasswordBox(hintText: 'Enter your password'),
+                                Text('ข้อมูลส่วนตัว',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    )),
+                                SizedBox(height: 20),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child:
+                                            FirstnameBox(hintText: 'ชื่อจริง')),
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                        child:
+                                            LastnameBox(hintText: 'นามสกุล')),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                PhoneBox(hintText: 'เบอร์โทรศัพท์'),
+                                SizedBox(height: 20),
+                                SignupBotton(),
+                              ]),
+                        ))))));
   }
 }
