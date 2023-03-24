@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -49,9 +47,9 @@ Future<void> addUserToFirestore(String username, String password,
   await FirebaseFirestore.instance.collection('users').add({
     'username': username,
     'password': password,
-    'firstName': firstname,
-    'lastName': lastname,
-    'phoneNumber': phonenumber
+    'firstname': firstname,
+    'lastname': lastname,
+    'phonenumber': phonenumber
   });
 }
 
@@ -64,6 +62,24 @@ Future<bool> checkuserphone(String phonenumber, String username) async {
         .get();
     if (snapshot.docs[0].data()['username'] != username ||
         snapshot.docs[0].data()['phonenumber'] != phonenumber) {
+      return false;
+    }
+    return true;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+Future<bool> checkpassword(String username, String password) async {
+  try {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .where('password', isEqualTo: password)
+        .get();
+    if (snapshot.docs[0].data()['username'] != username ||
+        snapshot.docs[0].data()['password'] != password) {
       return false;
     }
     return true;

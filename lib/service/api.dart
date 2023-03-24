@@ -9,6 +9,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final TextEditingController _usernameController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _newpasswordController = TextEditingController();
+final TextEditingController _confirmpasswordController =
+    TextEditingController();
+final TextEditingController _lockusernameController = TextEditingController();
 final TextEditingController _firstnameController = TextEditingController();
 final TextEditingController _lastnameController = TextEditingController();
 final TextEditingController _phonenumberController = TextEditingController();
@@ -291,6 +295,131 @@ class ForgotpasswordBotton extends StatelessWidget {
         }
       },
       child: Text('Submit'),
+    );
+  }
+}
+
+class ChangepasswordBotton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        if (_newpasswordController.text.isEmpty ||
+            _confirmpasswordController.text.isEmpty) {
+          // แสดงข้อความเตือนเมื่อช่อง username หรือ phonenumber ว่างเปล่า
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('กรุณากรอก Password ใหม่'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        } else {
+          Future<bool> success = checkpassword(
+              _lockusernameController as String, _newpasswordController.text);
+          if (await success) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('รหัสผ่่านนี้ถูกใช้ก่อนหน้าแล้ว'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+          }
+        }
+      },
+      child: Text('Submit'),
+    );
+  }
+}
+
+class NewPasswordBox extends StatefulWidget {
+  final String hintText;
+  NewPasswordBox({Key? key, required this.hintText}) : super(key: key);
+  @override
+  _NewPasswordBox createState() => _NewPasswordBox();
+}
+
+class _NewPasswordBox extends State<NewPasswordBox> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _newpasswordController,
+      obscureText: true,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.7),
+        labelText: 'Newpassword',
+        labelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.blue,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+        ),
+        prefixIcon: Icon(Icons.key),
+      ),
+    );
+  }
+}
+
+class ConfirmPasswordBox extends StatefulWidget {
+  final String hintText;
+  ConfirmPasswordBox({Key? key, required this.hintText}) : super(key: key);
+  @override
+  _ConfirmPasswordBox createState() => _ConfirmPasswordBox();
+}
+
+class _ConfirmPasswordBox extends State<ConfirmPasswordBox> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _confirmpasswordController,
+      obscureText: true,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.7),
+        labelText: 'ConfirmPassword',
+        labelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.blue,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+        ),
+        prefixIcon: Icon(Icons.key),
+      ),
+    );
+  }
+}
+
+class LockUsernameBox extends StatefulWidget {
+  final String hintText;
+  LockUsernameBox({Key? key, required this.hintText}) : super(key: key);
+  @override
+  _LockUsernameBox createState() => _LockUsernameBox();
+}
+
+class _LockUsernameBox extends State<LockUsernameBox> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _lockusernameController,
+      enabled: false, // เพิ่ม property นี้เพื่อกำหนดให้ช่องนี้ไม่สามารถแก้ไขได้
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.7),
+        labelText: 'Username',
+        labelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 0, 0, 0),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+        ),
+        prefixIcon: Icon(Icons.person),
+      ),
     );
   }
 }
