@@ -1,4 +1,5 @@
 import 'package:first_app/login2.dart';
+import 'package:first_app/map2.dart';
 import 'package:first_app/regisvehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -108,7 +109,7 @@ class LoginBotton extends StatelessWidget {
           if (success) {
             // สร้างหน้าที่จะไปหลังจาก Login สำเร็จ
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SignUpPage()));
+                context, MaterialPageRoute(builder: (context) => MapPage()));
           } else {
             // แสดงข้อความเตือนเมื่อ Login ไม่สำเร็จ
             ScaffoldMessenger.of(context).showSnackBar(
@@ -247,8 +248,8 @@ class SignupBotton extends StatelessWidget {
                 _firstnameController.text,
                 _lastnameController.text,
                 _phonenumberController.text);
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RegisterVehiclePage()));
           }
         }
       },
